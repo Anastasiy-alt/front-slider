@@ -1,0 +1,20 @@
+.slider__dot {
+    margin: 0 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #000;
+    transition: background-color 0.3s;
+    animation: big 0.3s forwards ease-out;
+  }
+
+  @keyframes big {
+    0% {
+        width: 6px;
+        height: 6px;
+    }
+    100% {
+        width: 10px;
+        height: 10px;
+    }
+}

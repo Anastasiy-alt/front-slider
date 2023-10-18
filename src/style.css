@@ -1,0 +1,10 @@
+@import url(./vendor/normalize.css);
+@import url(./blocks/slider/slider.css);
+@import url(./blocks/slider/__button/slider__button.css);
+@import url(./blocks/slider/__button/_type/slider__button_type_next.css);
+@import url(./blocks/slider/__button/_type/slider__button_type_prev.css);
+@import url(./blocks/slider/__img-box/slider__img-box.css);
+@import url(./blocks/slider/__img/slider__img.css);
+@import url(./blocks/slider/__dots/slider__dots.css);
+@import url(./blocks/slider/__dot/slider__dot.css);
+@import url(./blocks/slider/__dot/_active/slider__dot_active.css);

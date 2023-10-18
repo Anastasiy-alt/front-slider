@@ -1,0 +1,5 @@
+.slider__dots {
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
+}

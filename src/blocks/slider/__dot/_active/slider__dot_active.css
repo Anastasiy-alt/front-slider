@@ -1,0 +1,17 @@
+.slider__dot_active {
+    /* width: 6px;
+    height: 6px; */
+    background-color: #787878;
+    animation: small 0.3s forwards ease-out;
+}
+@keyframes small {
+    0% {
+      width: 10px;
+      height: 10px;
+    }
+    100% {
+      width: 6px;
+      height: 6px;
+    }
+  }
+  
