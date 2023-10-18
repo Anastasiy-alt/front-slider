@@ -1,0 +1,5 @@
+.slider__thumbnail_active {
+    border-radius: 5px;
+    border: 2px solid #FFF;
+    /* background: url(<path-to-image>), lightgray 50% / cover no-repeat; */
+}

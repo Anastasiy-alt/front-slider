@@ -1,0 +1,10 @@
+.slider__one-click {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: calc(100vw * (164 / 1920));
+    background-color: rgba(0, 0, 0, 0.40);;
+}

@@ -1,0 +1,4 @@
+.slider__img_size_medium {
+    max-width: calc(100vw * (1202 / 1920));
+    height: 752px;
+}

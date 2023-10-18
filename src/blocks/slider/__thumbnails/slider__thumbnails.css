@@ -1,0 +1,10 @@
+.slider__thumbnails {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    padding-top: 39px;
+    padding-bottom: 42px;
+}

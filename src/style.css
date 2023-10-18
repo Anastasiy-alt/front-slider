@@ -8,3 +8,9 @@
 @import url(./blocks/slider/__dots/slider__dots.css);
 @import url(./blocks/slider/__dot/slider__dot.css);
 @import url(./blocks/slider/__dot/_active/slider__dot_active.css);
+@import url(./blocks/slider/__thumbnail-img/slider__thumbnail-img.css);
+@import url(./blocks/slider/__thumbnails/slider__thumbnails.css);
+@import url(./blocks/slider/__thumbnail-img/_active/slider__thumbnail_active.css);
+@import url(./blocks/slider/__one-click/slider__one-click.css);
+@import url(./blocks/slider/__img/_size/slider__img_size_medium.css);
+@import url(./blocks/slider/__img/_size/slider__img_size_full.css);
