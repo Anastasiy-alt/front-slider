@@ -2,3 +2,7 @@
     background-image: url(../../../../assets/next.svg);
     right: 0;
 }
+
+.slider__button_type_next:hover {
+    background-image: url(../../../../assets/nextHover.svg);
+}

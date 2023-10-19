@@ -3,9 +3,9 @@ export default {
   data() {
     return {
       slides: [
-        'https://images.unsplash.com/photo-1697403704196-e08fb51fc0cd?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2487',
-        'https://images.unsplash.com/photo-1517784541475-54f13a036167?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2302',
-        'https://images.unsplash.com/photo-1520637438573-ee1ba80b2a7f?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2340'
+        'https://images.unsplash.com/photo-1697403704196-e08fb51fc0cd?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2487.jpg',
+        'https://images.unsplash.com/photo-1517784541475-54f13a036167?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2302.jpg',
+        'https://images.unsplash.com/photo-1520637438573-ee1ba80b2a7f?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2340.jpg'
       ],
       dots: [
         './assets/dots=activeFirstSlide.svg',
@@ -13,14 +13,23 @@ export default {
         './assets/dots=activeThirdSlide.svg'
       ],
       currentIndex: 0,
+      backCurrentIndex: 0,
       activeIndex: 0,
-      showThumbnails: true,
-      imageFullScreen: false
+      showThumbnails: false,
+      imageFullScreen: false,
+      defaultSlider: true
     };
   },
   computed: {
     currentSlide() {
       return this.slides[this.currentIndex];
+    },
+    backCurrentSlide() {
+      this.backCurrentIndex = this.currentIndex
+      if (this.backCurrentIndex === this.slides.length - 1) {
+        this.backCurrentIndex = 0;
+      }
+      return this.slides[this.backCurrentIndex + 1];
     }
   },
   methods: {
@@ -40,45 +49,76 @@ export default {
       }
       this.activeIndex = this.currentIndex;
     },
-    toggleThumbnails() {
-      // this.showThumbnails = !this.showThumbnails;
+    openThumbnails() {
+      this.showThumbnails = true;
+      this.imageFullScreen = false;
+      this.defaultSlider = false;
     },
     openFullScreenImage() {
-        this.imageFullScreen = true;
+      this.imageFullScreen = true;
+      this.showThumbnails = false;
+      this.defaultSlider = false;
+    },
+    openDefaultSlider() {
+      this.imageFullScreen = false;
+      this.showThumbnails = false;
+      this.defaultSlider = true;
+    },
+    downloadImage() {
+      const link = document.createElement('a');
+      link.href = this.currentSlide;
+      link.download = this.currentSlide;
+      link.click();
+    },
+    mounted() {
+      setInterval(() => { this.nextSlide(); }, 300000);
+    },
+    setCurrentSlide(index) {
+      this.currentIndex = index;
+      this.activeIndex = index;
     }
-  },
-  mounted() {
-    setInterval(() => { this.nextSlide(); }, 30000);
-  },
-  setCurrentSlide(index) {
-    this.currentIndex = index;
-    this.activeIndex = index;
   }
 }
 </script>
 
 <template>
   <div class="slider">
-    <!-- <div class="slider__img-box" v-if="!showThumbnails" >
+    <div class="slider__img-box" v-if="defaultSlider">
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
-      <img :src="currentSlide" class="slider__img" :key="currentIndex" @click="toggleThumbnails"
-        @dblclick="addImageBorder">
+      <img :src="currentSlide" class="slider__img" :key="currentIndex" @click="openThumbnails" alt="Картинка.">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
     </div>
-    <div class="slider__dots" v-if="!showThumbnails" >
+    <div class="slider__dots" v-if="defaultSlider">
       <span v-for="(slide, index) in slides" :key="index" class="slider__dot"
         :class="{ 'slider__dot_active': index === currentIndex }"></span>
-    </div> -->
+    </div>
 
-    <div class="slider__one-click">
+    <div class="slider__one-click" v-if="showThumbnails">
+      <button class="slider__save" @click="downloadImage"></button>
+      <button class="slider__close" @click="openDefaultSlider"></button>
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
+      <img :src="backCurrentSlide" class="slider__img slider__img_size_medium slider__img_back" :key="backCurrentIndex"
+        @dblclick="openFullScreenImage" alt="Следующая картинка.">
       <img :src="currentSlide" class="slider__img slider__img_size_medium" :key="currentIndex"
-      @dblclick="openFullScreenImage" :class="{ 'slider__img_size_full': imageFullScreen }">
+        @dblclick="openFullScreenImage"  alt="Картинка.">
+      <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
+      <div class="slider__thumbnails">
+        <img v-for="(slide, index) in slides" :key="index" :src="slide"
+          :class="{ 'slider__thumbnail_active': index === activeIndex }" @click="setCurrentSlide(index)"
+          class="slider__thumbnail-img" />
+      </div>
+    </div>
+
+    <div class="slider__double-click" v-if="imageFullScreen">
+      <button class="slider__save" @click="downloadImage"></button>
+      <button class="slider__close" @click="openDefaultSlider"></button>
+      <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
+      <img :src="currentSlide" class="slider__img slider__img_size_full" :key="currentIndex" @click="openDefaultSlider">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
       <div v-if="showThumbnails" class="slider__thumbnails">
         <img v-for="(slide, index) in slides" :key="index" :src="slide"
           :class="{ 'slider__thumbnail_active': index === activeIndex }" @click="setCurrentSlide(index)"
-          class="slider__thumbnail-img" />
+          class="slider__thumbnail-img"  alt="Маленькая картинка."/>
       </div>
     </div>
 

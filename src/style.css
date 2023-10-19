@@ -14,3 +14,7 @@
 @import url(./blocks/slider/__one-click/slider__one-click.css);
 @import url(./blocks/slider/__img/_size/slider__img_size_medium.css);
 @import url(./blocks/slider/__img/_size/slider__img_size_full.css);
+@import url(./blocks/slider/__double-click/slider__double-click.css);
+@import url(./blocks/slider/__img/_back/slider__img_back.css);
+@import url(./blocks/slider/__close/slider__close.css);
+@import url(./blocks/slider/__save/slider__save.css);

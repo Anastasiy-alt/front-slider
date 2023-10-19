@@ -2,3 +2,7 @@
     background-image: url(../../../../assets/prev.svg);
     left: 0;
 }
+
+.slider__button_type_prev:hover {
+    background-image: url(../../../../assets/prevHover.svg);
+}
