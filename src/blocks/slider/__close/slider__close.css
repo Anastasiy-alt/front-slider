@@ -1,0 +1,19 @@
+.slider__close {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    background-image: url(../../../assets/close=Default.svg);
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.slider__close:hover {
+    background-image: url(../../../assets/close=hover.svg);
+}
