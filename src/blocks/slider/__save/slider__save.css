@@ -12,6 +12,7 @@
     right: 81px;
     transition: all .3s ease;
     cursor: pointer;
+    z-index: 3;
 }
 
 .slider__save:hover {

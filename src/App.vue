@@ -29,19 +29,13 @@ export default {
       return this.slides[this.backCurrentIndex + 1];
     },
     isHorizontal() {
-      // Проверяем, является ли картинка горизонтальной
-      // (ширина больше высоты)
       const img = new Image();
       img.src = this.slides[this.currentIndex];
-      console.log(img.naturalWidth, img.naturalHeight, 'H')
       return img.naturalWidth > img.naturalHeight;
     },
     isVertical() {
-      // Проверяем, является ли картинка вертикальной
-      // (высота больше ширины)
       const img = new Image();
       img.src = this.slides[this.currentIndex];
-      console.log(img.naturalWidth, img.naturalHeight, 'V')
       return img.naturalWidth < img.naturalHeight;
     }
 
@@ -92,7 +86,6 @@ export default {
           window.URL.revokeObjectURL(url);
         })
         .catch(error => console.error('Error downloading image:', error));
-
     },
     mounted() {
       setInterval(() => { this.nextSlide(); }, 300000);
@@ -107,7 +100,7 @@ export default {
 
 <template>
   <div class="slider">
-    <div class="slider__img-box" v-if="defaultSlider  && (isHorizontal || isVertical)">
+    <div class="slider__img-box" v-if="defaultSlider && (isHorizontal || isVertical)">
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
       <img :src="currentSlide" :key="currentIndex" @click="openThumbnails" :class="{
         'slider__img slider__img_orientation_horizontal': isHorizontal === true,
@@ -117,7 +110,7 @@ export default {
     </div>
     <div class="slider__dots" v-if="defaultSlider">
       <span v-for="(slide, index) in slides" :key="index" class="slider__dot"
-        :class="{ 'slider__dot_active': index === currentIndex }"></span>
+        :class="{ 'slider__dot_active': index === currentIndex }" @click="setCurrentSlide(index)"></span>
     </div>
 
     <div class="slider__one-click" v-if="showThumbnails">
@@ -127,13 +120,14 @@ export default {
       <img :src="backCurrentSlide" class="slider__img slider__img_size_medium slider__img_back" :key="backCurrentIndex"
         @dblclick="openFullScreenImage" alt="Следующая картинка.">
 
-      <img :src="currentSlide" class="slider__img slider__img_size_medium" :key="currentIndex"
-        @dblclick="openFullScreenImage" alt="Картинка.">
+      <img :src="currentSlide" class="slider__img slider__img_size_medium"
+        :class="{ 'fullscreen': imageFullScreen == true }" :key="currentIndex" @dblclick="openFullScreenImage"
+        alt="Картинка.">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
       <div class="slider__thumbnails">
         <img v-for="(slide, index) in slides" :key="index" :src="slide"
           :class="{ 'slider__thumbnail_active': index === activeIndex }" @click="setCurrentSlide(index)"
-          class="slider__thumbnail-img" />
+          class="slider__thumbnail-img" alt="Превью картинки." />
       </div>
     </div>
 
@@ -141,11 +135,10 @@ export default {
       <button class="slider__save" @click="downloadImage"></button>
       <button class="slider__close" @click="openDefaultSlider"></button>
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
-      <img :src="currentSlide" class="slider__img slider__img_size_full" :key="currentIndex" @click="openThumbnails">
+      <img :src="currentSlide" class="slider__img slider__img_size_full" :key="currentIndex" @click="openThumbnails"
+        alt="Превью картинки.">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
     </div>
-
-
   </div>
 </template>
 

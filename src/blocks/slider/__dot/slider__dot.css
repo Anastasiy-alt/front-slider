@@ -6,6 +6,7 @@
     background-color: #000;
     transition: background-color 0.3s;
     animation: big 0.3s forwards ease-out;
+    cursor: pointer;
   }
 
   @keyframes big {
