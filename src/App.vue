@@ -9,11 +9,6 @@ export default {
         // 'https://images.unsplash.com/photo-1547454876-9c75be28f80d?auto=format&fit=crop&q=80&w=2482&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg',
         'https://images.unsplash.com/photo-1520637438573-ee1ba80b2a7f?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2340.jpg'
       ],
-      dots: [
-        './assets/dots=activeFirstSlide.svg',
-        './assets/dots=activeSecondSlide.svg',
-        './assets/dots=activeThirdSlide.svg'
-      ],
       currentIndex: 0,
       backCurrentIndex: 0,
       activeIndex: 0,
@@ -32,7 +27,24 @@ export default {
         this.backCurrentIndex = 0;
       }
       return this.slides[this.backCurrentIndex + 1];
+    },
+    isHorizontal() {
+      // Проверяем, является ли картинка горизонтальной
+      // (ширина больше высоты)
+      const img = new Image();
+      img.src = this.slides[this.currentIndex];
+      console.log(img.naturalWidth, img.naturalHeight, 'H')
+      return img.naturalWidth > img.naturalHeight;
+    },
+    isVertical() {
+      // Проверяем, является ли картинка вертикальной
+      // (высота больше ширины)
+      const img = new Image();
+      img.src = this.slides[this.currentIndex];
+      console.log(img.naturalWidth, img.naturalHeight, 'V')
+      return img.naturalWidth < img.naturalHeight;
     }
+
   },
   methods: {
     prevSlide() {
@@ -73,7 +85,7 @@ export default {
           const url = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
           link.href = url;
-          link.download = 'image.jpg';
+          link.download = 'pinguin-image.jpg';
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -95,9 +107,12 @@ export default {
 
 <template>
   <div class="slider">
-    <div class="slider__img-box" v-if="defaultSlider">
+    <div class="slider__img-box" v-if="defaultSlider  && (isHorizontal || isVertical)">
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
-      <img :src="currentSlide" class="slider__img" :key="currentIndex" @click="openThumbnails" alt="Картинка.">
+      <img :src="currentSlide" :key="currentIndex" @click="openThumbnails" :class="{
+        'slider__img slider__img_orientation_horizontal': isHorizontal === true,
+        'slider__img slider__img_orientation_vertical': isVertical === true
+      }" alt="Картинка.">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
     </div>
     <div class="slider__dots" v-if="defaultSlider">

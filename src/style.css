@@ -18,3 +18,5 @@
 @import url(./blocks/slider/__img/_back/slider__img_back.css);
 @import url(./blocks/slider/__close/slider__close.css);
 @import url(./blocks/slider/__save/slider__save.css);
+@import url(./blocks/slider/__img/_orientation/slider__img-orientation_vertical.css);
+@import url(./blocks/slider/__img/_orientation/slider__img_orientation_horizontal.css);

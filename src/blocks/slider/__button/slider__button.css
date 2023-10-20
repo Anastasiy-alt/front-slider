@@ -9,4 +9,5 @@
     background-color: transparent;
     transition: all .3s ease;
     cursor: pointer;
+    z-index: 3;
 }
