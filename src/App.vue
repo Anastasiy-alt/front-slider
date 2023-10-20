@@ -5,6 +5,8 @@ export default {
       slides: [
         'https://images.unsplash.com/photo-1697403704196-e08fb51fc0cd?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2487.jpg',
         'https://images.unsplash.com/photo-1517784541475-54f13a036167?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2302.jpg',
+        // 'https://images.unsplash.com/photo-1602575910330-f9807b05f69d?auto=format&fit=crop&q=80&w=2574&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg',
+        // 'https://images.unsplash.com/photo-1547454876-9c75be28f80d?auto=format&fit=crop&q=80&w=2482&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg',
         'https://images.unsplash.com/photo-1520637438573-ee1ba80b2a7f?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2340.jpg'
       ],
       dots: [
@@ -99,6 +101,7 @@ export default {
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
       <img :src="backCurrentSlide" class="slider__img slider__img_size_medium slider__img_back" :key="backCurrentIndex"
         @dblclick="openFullScreenImage" alt="Следующая картинка.">
+
       <img :src="currentSlide" class="slider__img slider__img_size_medium" :key="currentIndex"
         @dblclick="openFullScreenImage"  alt="Картинка.">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
@@ -113,13 +116,8 @@ export default {
       <button class="slider__save" @click="downloadImage"></button>
       <button class="slider__close" @click="openDefaultSlider"></button>
       <button @click="prevSlide" class="slider__button slider__button_type_prev"></button>
-      <img :src="currentSlide" class="slider__img slider__img_size_full" :key="currentIndex" @click="openDefaultSlider">
+      <img :src="currentSlide" class="slider__img slider__img_size_full" :key="currentIndex" @click="openThumbnails">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
-      <div v-if="showThumbnails" class="slider__thumbnails">
-        <img v-for="(slide, index) in slides" :key="index" :src="slide"
-          :class="{ 'slider__thumbnail_active': index === activeIndex }" @click="setCurrentSlide(index)"
-          class="slider__thumbnail-img"  alt="Маленькая картинка."/>
-      </div>
     </div>
 
 

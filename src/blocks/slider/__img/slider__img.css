@@ -2,4 +2,5 @@
     object-fit: cover;
     max-width: 1100px;
     height: 688px;
+    z-index: 2;
 }
