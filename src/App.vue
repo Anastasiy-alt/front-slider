@@ -67,10 +67,20 @@ export default {
       this.defaultSlider = true;
     },
     downloadImage() {
-      const link = document.createElement('a');
-      link.href = this.currentSlide;
-      link.download = this.currentSlide;
-      link.click();
+      fetch(this.currentSlide)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'image.jpg';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(error => console.error('Error downloading image:', error));
+
     },
     mounted() {
       setInterval(() => { this.nextSlide(); }, 300000);
@@ -103,7 +113,7 @@ export default {
         @dblclick="openFullScreenImage" alt="Следующая картинка.">
 
       <img :src="currentSlide" class="slider__img slider__img_size_medium" :key="currentIndex"
-        @dblclick="openFullScreenImage"  alt="Картинка.">
+        @dblclick="openFullScreenImage" alt="Картинка.">
       <button @click="nextSlide" class="slider__button slider__button_type_next"></button>
       <div class="slider__thumbnails">
         <img v-for="(slide, index) in slides" :key="index" :src="slide"
@@ -127,6 +137,3 @@ export default {
 <style scoped>
 /* *,*::before,*::after {outline: 1px solid red} */
 </style>
-
-
-<!-- :class="{ 'slider__img-bordered': imageBorder }" -->
