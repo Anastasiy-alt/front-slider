@@ -38,7 +38,6 @@ export default {
       img.src = this.slides[this.currentIndex];
       return img.naturalWidth < img.naturalHeight;
     }
-
   },
   methods: {
     prevSlide() {
@@ -87,13 +86,13 @@ export default {
         })
         .catch(error => console.error('Error downloading image:', error));
     },
-    mounted() {
-      setInterval(() => { this.nextSlide(); }, 300000);
-    },
     setCurrentSlide(index) {
       this.currentIndex = index;
       this.activeIndex = index;
     }
+  },
+  mounted() {
+    setInterval(() => { this.nextSlide(); }, 3000);
   }
 }
 </script>
@@ -142,6 +141,4 @@ export default {
   </div>
 </template>
 
-<style scoped>
-/* *,*::before,*::after {outline: 1px solid red} */
-</style>
+<style scoped></style>
